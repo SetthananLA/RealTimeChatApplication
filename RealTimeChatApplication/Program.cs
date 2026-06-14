@@ -16,15 +16,6 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddSignalR();
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
-//app.UseHttpsRedirection();
 builder.Services.AddAuthentication(
     JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -49,6 +40,16 @@ builder.Services.AddAuthentication(
 builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<ITokenService, TokenService>();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+}
+
+//app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
